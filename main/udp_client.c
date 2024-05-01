@@ -150,7 +150,7 @@ static void udp_client_task(void *pvParameters)
 
             
 
-            vTaskDelay(pdMS_TO_TICKS(25));
+            vTaskDelay(pdMS_TO_TICKS(10));
         }
 
         if (sock != -1) {
