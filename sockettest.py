@@ -4,17 +4,21 @@ import time
 
 def clear_socket_buffer(sock):
     try:
+        sock.setblocking(True)
         while True:
             # Receive data from the socket
             data = sock.recv(4096)
             if not data:
                 break  # No more data to read
+                sock.setblocking(False)
+
     except socket.error as e:
         print("Socket error:", e)
+        sock.setblocking(False)
 
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-server_socket.bind(('192.168.1.24', 3333))
+server_socket.bind(('192.168.1.47', 3333))
 time.sleep(3)
 first = True
 for i in range(0,21):
