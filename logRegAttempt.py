@@ -7,8 +7,9 @@ from sklearn.ensemble import RandomForestClassifier
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
+
 # Directory path
-directoryArr = ['Data/Abnormal', 'Data/Normal']
+directoryArr = ["Data/Abnormal", "Data/Normal"]
 
 # Get all files in the directory with absolute paths
 
@@ -17,15 +18,19 @@ dfs = []
 labels = []
 # Process each file
 for directory in directoryArr:
-    files = [os.path.join(directory, f) for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f))]
+    files = [
+        os.path.join(directory, f)
+        for f in os.listdir(directory)
+        if os.path.isfile(os.path.join(directory, f))
+    ]
     for f in files:
         # do something
         if "Sternum" in f:
             continue
-        
+
         df = pd.read_csv(f)
         if "time" in df:
-            df.drop(columns=['time'])
+            df.drop(columns=["time"], inpalce=True)
         if directory == "Data/Abnormal":
             labels.append("Abnormal")
         else:
@@ -38,11 +43,13 @@ for directory in directoryArr:
         df_transposed.reset_index(inplace=True)
 
         # Rename columns
-        new_columns = {i: f'{col}{i+1}' for i, col in enumerate(df_transposed.iloc[:, 0])}
+        new_columns = {
+            i: f"{col}{i+1}" for i, col in enumerate(df_transposed.iloc[:, 0])
+        }
         df_transposed = df_transposed.rename(columns=new_columns)
 
         # Drop the first column (original column names)
-        df_transposed.drop(columns='index', inplace=True)
+        df_transposed.drop(columns="index", inplace=True)
 
         # Keep only the first row, as we transposed the DataFrame
         df_transposed = df_transposed.iloc[0, :]
@@ -56,7 +63,7 @@ y = labels
 
 # Split data into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
-imputer = SimpleImputer(strategy='mean')
+imputer = SimpleImputer(strategy="mean")
 X_train_imputed = imputer.fit_transform(X_train)
 X_test_imputed = imputer.transform(X_test)
 scaler = StandardScaler()
