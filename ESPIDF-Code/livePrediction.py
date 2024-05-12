@@ -6,7 +6,7 @@ def formatUDPMessage(message):
     values = message.split(",")
     dict = {}
     for x in range(0,len(data)):
-        dict[data[x]] = values[x]
+        dict[data[x]] = float(values[x])
 
     return message
 
