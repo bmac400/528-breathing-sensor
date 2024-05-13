@@ -29,7 +29,8 @@ server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 server_socket.bind(('192.168.1.47', 3333))
 data = []
 first = True
-
+encoder = LabelEncoder()
+new_model = tf.keras.models.load_model('TrainedCNNModel.h5')
 # enable interactive (live) plotting
 plt.ion()
 plt.suptitle("Live Data Readings")
@@ -46,8 +47,7 @@ while True:
         #runModel
         if "time" in df:
             df.drop(columns=["time"], inplace=True)
-        encoder = LabelEncoder()
-        new_model = tf.keras.models.load_model('TrainedCNNModel.h5')
+       
         new_data = [df.values]
         #new_data = ...  # shape (1, 400, n_features) after scaling
         predictions = new_model.predict(new_data)
