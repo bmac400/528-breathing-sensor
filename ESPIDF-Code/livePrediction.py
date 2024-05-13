@@ -26,5 +26,13 @@ while True:
         df = df.iloc[1:]
         df.append(formatUDPMessage(message), ignore_index=True)
         #runModel
-        print("Prediction:")
+        if "time" in df:
+            df.drop(columns=["time"], inplace=True)
+        encoder = LabelEncoder()
+        new_model = tf.keras.models.load_model('TrainedCNNModel.h5')
+        new_data = [df.values]
+        #new_data = ...  # shape (1, 400, n_features) after scaling
+        predictions = new_model.predict(new_data)
+        predicted_label = encoder.inverse_transform([np.argmax(predictions)])
+        print(f"Predicted Label: {predicted_label}")
 
