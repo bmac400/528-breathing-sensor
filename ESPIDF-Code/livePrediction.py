@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from scipy.signal import spectrogram
 from scipy.fft import fft, fftfreq
 import numpy as np
+import tensorflow as tf
 
 def formatUDPMessage(message):
     data = ["xacc","yacc","zacc","xgyro","ygyro","zgyro"]
@@ -30,6 +31,7 @@ server_socket.bind(('192.168.1.47', 3333))
 data = []
 first = True
 encoder = LabelEncoder()
+encoder.fit(["abnormal","noise","normal"])
 new_model = tf.keras.models.load_model('TrainedCNNModel.h5')
 # enable interactive (live) plotting
 plt.ion()
