@@ -50,7 +50,7 @@ while True:
         if "time" in df:
             df.drop(columns=["time"], inplace=True)
        
-        new_data = [df.values]
+        new_data = df.values.reshape(1,400,6)
         #new_data = ...  # shape (1, 400, n_features) after scaling
         predictions = new_model.predict(new_data)
         predicted_label = encoder.inverse_transform([np.argmax(predictions)])
