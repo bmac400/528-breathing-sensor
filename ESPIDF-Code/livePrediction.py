@@ -54,7 +54,7 @@ while True:
         #new_data = ...  # shape (1, 400, n_features) after scaling
         predictions = new_model.predict(new_data)
         predicted_label = encoder.inverse_transform([np.argmax(predictions)])
-        print(f"Predicted Label: {predicted_label}")
+        print(f"Predicted Label: {predicted_label[0]}")
 
         # create live graphs
         # separate data 
