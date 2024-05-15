@@ -40,8 +40,8 @@ server_socket.bind(('192.168.1.9', 3333))
 data = []
 first = True
 encoder = LabelEncoder()
-encoder.fit(["abnormal","normal","noise"])
-new_model = tf.keras.models.load_model("C:/Users/bryan/VSCode/Breathing Sensor/528-breathing-sensor/ESPIDF-Code/TrainedCNNModel.h5")
+encoder.fit(["abnormal","noise","normal"])
+new_model = tf.keras.models.load_model('TrainedCNNModel.h5')
 # enable interactive (live) plotting
 plt.ion()
 plt.show()
